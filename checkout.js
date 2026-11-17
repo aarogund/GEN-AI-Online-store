@@ -70,3 +70,61 @@
         date: new Date().toISOString()
       };
     }
+    document.addEventListener('click', (event) => {
+      const addButton = event.target.closest('.add-btn');
+      const actionButton = event.target.closest('[data-action]');
+      const navButton = event.target.closest('.nav-btn');
+
+      if (addButton) {
+        const product = allProducts.find((item) => String(item.id) === addButton.dataset.id);
+        if (product) {
+          cart.addItem(product);
+        }
+      }
+
+      if (actionButton) {
+        const { action, id } = actionButton.dataset;
+        if (action === 'increase') {
+          cart.updateQuantity(Number(id), cart.items.find((item) => item.id === Number(id)).quantity + 1);
+        }
+        if (action === 'decrease') {
+          const item = cart.items.find((entry) => entry.id === Number(id));
+          if (item && item.quantity > 1) {
+            cart.updateQuantity(Number(id), item.quantity - 1);
+          } else {
+            cart.removeItem(Number(id));
+          }
+        }
+        if (action === 'remove') {
+          cart.removeItem(Number(id));
+        }
+      }
+
+      if (navButton) {
+        const viewName = navButton.dataset.view;
+        if (viewName === 'checkout' && !cart.items.length) {
+          setFieldError('fullName', '');
+          setFieldError('email', '');
+          setFieldError('phone', '');
+          setFieldError('address', '');
+          const notice = document.createElement('div');
+          notice.className = 'cart-warning';
+          notice.style.color = '#ef4444';
+          notice.style.fontWeight = '700';
+          notice.style.marginBottom = '0.75rem';
+          notice.textContent = 'Your cart is empty. Add items before checkout.';
+          const form = document.getElementById('checkoutForm');
+          if (!form.querySelector('.cart-warning')) {
+            form.insertBefore(notice, form.firstChild);
+          }
+          return;
+        }
+
+        const existingWarning = document.querySelector('.cart-warning');
+        if (existingWarning) {
+          existingWarning.remove();
+        }
+        setView(viewName);
+      }
+    });
+    
