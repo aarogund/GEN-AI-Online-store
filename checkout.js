@@ -127,4 +127,35 @@
         setView(viewName);
       }
     });
+    checkoutButton.addEventListener('click', () => {
+          if (!cart.items.length) {
+            setView('products');
+            return;
+          }
+          setView('checkout');
+        });
     
+        checkoutForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+    
+          if (!cart.items.length) {
+            setFieldError('address', 'Your cart is empty. Add products before placing an order.');
+            return;
+          }
+    
+          const isValid = validateForm();
+          if (!isValid) {
+            return;
+          }
+    
+          const order = buildOrder();
+          localStorage.setItem('nccMarketLatestOrder', JSON.stringify(order));
+          renderSummary(order);
+          setView('summary');
+          cart.clear();
+          checkoutForm.reset();
+          setFieldError('fullName', '');
+          setFieldError('email', '');
+          setFieldError('phone', '');
+          setFieldError('address', '');
+        });
