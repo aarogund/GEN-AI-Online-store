@@ -31,4 +31,42 @@
       return '';
     }
 
-    
+    function setFieldError(fieldId, message) {
+      const errorNode = document.querySelector(`[data-error-for="${fieldId}"]`);
+      if (errorNode) {
+        errorNode.textContent = message;
+      }
+    }
+
+    function validateForm() {
+      let isValid = true;
+      const fields = ['fullName', 'email', 'phone', 'address'];
+
+      fields.forEach((fieldId) => {
+        const value = document.getElementById(fieldId).value;
+        const message = validateField(fieldId, value);
+        setFieldError(fieldId, message);
+        if (message) {
+          isValid = false;
+        }
+      });
+
+      return isValid;
+    }
+
+    function buildOrder() {
+      const customer = {
+        name: document.getElementById('fullName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        address: document.getElementById('address').value.trim()
+      };
+
+      return {
+        orderId: `ORD-${Date.now()}`,
+        customer,
+        items: cart.items.map((item) => ({ ...item })),
+        total: cart.getTotal(),
+        date: new Date().toISOString()
+      };
+    }
