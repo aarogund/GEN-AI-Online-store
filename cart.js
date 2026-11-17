@@ -1,4 +1,4 @@
-class Cart {
+export class Cart {
       constructor() {
         this.items = JSON.parse(localStorage.getItem('nccMarketCart') || '[]');
       }
@@ -59,5 +59,3 @@ class Cart {
         renderCart();
       }
     }
-
-    const cart = new Cart();
