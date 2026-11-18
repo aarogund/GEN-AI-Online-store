@@ -1,3 +1,11 @@
+import { allProducts } from "./products.js";
+import { cart } from "./cart.js";
+    
+    const checkoutButton = document.getElementById('checkoutButton');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const navButtons = document.querySelectorAll('.nav-btn');
+    
+    export const views = {
     const checkoutButton = document.getElementById('checkoutButton');
     const checkoutForm = document.getElementById('checkoutForm');
     const navButtons = document.querySelectorAll('.nav-btn');
@@ -7,6 +15,18 @@
       summary: document.getElementById('summaryView')
     };
 
+export function setView(viewName) {
+      Object.entries(views).forEach(([key, view]) => {
+        view.classList.toggle('active', key === viewName);
+      });
+
+navButtons.forEach((button) => {
+        button.classList.toggle('active', button.dataset.view === viewName);
+      });
+    }
+
+
+    export function validateField(fieldId, value) {
     function validateField(fieldId, value) {
       const trimmed = value.trim();
 
@@ -31,6 +51,7 @@
       return '';
     }
 
+    export function setFieldError(fieldId, message) {
     function setFieldError(fieldId, message) {
       const errorNode = document.querySelector(`[data-error-for="${fieldId}"]`);
       if (errorNode) {
@@ -38,6 +59,7 @@
       }
     }
 
+    export function validateForm() {
     function validateForm() {
       let isValid = true;
       const fields = ['fullName', 'email', 'phone', 'address'];
@@ -54,6 +76,7 @@
       return isValid;
     }
 
+    export function buildOrder() {
     function buildOrder() {
       const customer = {
         name: document.getElementById('fullName').value.trim(),
@@ -70,6 +93,8 @@
         date: new Date().toISOString()
       };
     }
+
+    export function initClicks(){
     document.addEventListener('click', (event) => {
       const addButton = event.target.closest('.add-btn');
       const actionButton = event.target.closest('[data-action]');
@@ -127,6 +152,7 @@
         setView(viewName);
       }
     });
+
     checkoutButton.addEventListener('click', () => {
           if (!cart.items.length) {
             setView('products');
@@ -158,4 +184,7 @@
           setFieldError('email', '');
           setFieldError('phone', '');
           setFieldError('address', '');
+        });
+
+    }
         });

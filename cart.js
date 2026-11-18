@@ -1,4 +1,12 @@
-export class Cart {
+  import { allProducts, currency } from "./products.js";
+  import { setView } from "./checkout.js";
+  
+  const cartItemsElement = document.getElementById('cartItems');
+  const cartEmptyElement = document.getElementById('cartEmpty');
+  const cartTotalElement = document.getElementById('cartTotal');
+  const cartBadge = document.getElementById('cartBadge');
+
+  export class Cart {
       constructor() {
         this.items = JSON.parse(localStorage.getItem('nccMarketCart') || '[]');
       }
@@ -60,18 +68,13 @@ export class Cart {
       }
     }
 
-    const cart = new Cart();
+  export  const cart = new Cart();
 
-    // const currency = new Intl.NumberFormat('en-US', {
-    //   style: 'currency',
-    //   currency: 'USD'
-    // });
-
-    function formatCurrency(value) {
+  function formatCurrency(value) {
       return currency.format(value);
     }
 
-    function renderCart() {
+  function renderCart() {
       cartItemsElement.innerHTML = '';
 
       if (!cart.items.length) {
@@ -111,23 +114,24 @@ export class Cart {
       });
     }
 
-    function buildOrder() {
-      const customer = {
-        name: document.getElementById('fullName').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        address: document.getElementById('address').value.trim()
-      };
+    // function buildOrder() {
+    //   const customer = {
+    //     name: document.getElementById('fullName').value.trim(),
+    //     email: document.getElementById('email').value.trim(),
+    //     phone: document.getElementById('phone').value.trim(),
+    //     address: document.getElementById('address').value.trim()
+    //   };
 
-      return {
-        orderId: `ORD-${Date.now()}`,
-        customer,
-        items: cart.items.map((item) => ({ ...item })),
-        total: cart.getTotal(),
-        date: new Date().toISOString()
-      };
-    }
+    //   return {
+    //     orderId: `ORD-${Date.now()}`,
+    //     customer,
+    //     items: cart.items.map((item) => ({ ...item })),
+    //     total: cart.getTotal(),
+    //     date: new Date().toISOString()
+    //   };
+    // }
 
+    export function initCart(){
     document.addEventListener('click', (event) => {
       const addButton = event.target.closest('.add-btn');
       const actionButton = event.target.closest('[data-action]');
@@ -186,4 +190,4 @@ export class Cart {
       }
     });
 
-    //
+  }
