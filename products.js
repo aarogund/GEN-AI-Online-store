@@ -11,7 +11,7 @@ const views = {
 };
 
 // Store all products retrieved from the API
-let allProducts = [];
+ let allProducts = [];
 
 // Format prices as USD
 const currency = new Intl.NumberFormat('en-US', {
