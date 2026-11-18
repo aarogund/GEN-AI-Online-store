@@ -1,4 +1,9 @@
-export class Cart {
+    const cartItemsElement = document.getElementById('cartItems');
+    const cartEmptyElement = document.getElementById('cartEmpty');
+    const cartTotalElement = document.getElementById('cartTotal');
+    const cartBadge = document.getElementById('cartBadge');
+
+ class Cart {
       constructor() {
         this.items = JSON.parse(localStorage.getItem('nccMarketCart') || '[]');
       }
@@ -62,11 +67,6 @@ export class Cart {
 
     const cart = new Cart();
 
-    // const currency = new Intl.NumberFormat('en-US', {
-    //   style: 'currency',
-    //   currency: 'USD'
-    // });
-
     function formatCurrency(value) {
       return currency.format(value);
     }
@@ -111,79 +111,77 @@ export class Cart {
       });
     }
 
-    function buildOrder() {
-      const customer = {
-        name: document.getElementById('fullName').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        address: document.getElementById('address').value.trim()
-      };
+    // function buildOrder() {
+    //   const customer = {
+    //     name: document.getElementById('fullName').value.trim(),
+    //     email: document.getElementById('email').value.trim(),
+    //     phone: document.getElementById('phone').value.trim(),
+    //     address: document.getElementById('address').value.trim()
+    //   };
 
-      return {
-        orderId: `ORD-${Date.now()}`,
-        customer,
-        items: cart.items.map((item) => ({ ...item })),
-        total: cart.getTotal(),
-        date: new Date().toISOString()
-      };
-    }
+    //   return {
+    //     orderId: `ORD-${Date.now()}`,
+    //     customer,
+    //     items: cart.items.map((item) => ({ ...item })),
+    //     total: cart.getTotal(),
+    //     date: new Date().toISOString()
+    //   };
+    // }
 
-    document.addEventListener('click', (event) => {
-      const addButton = event.target.closest('.add-btn');
-      const actionButton = event.target.closest('[data-action]');
-      const navButton = event.target.closest('.nav-btn');
+    // document.addEventListener('click', (event) => {
+    //   const addButton = event.target.closest('.add-btn');
+    //   const actionButton = event.target.closest('[data-action]');
+    //   const navButton = event.target.closest('.nav-btn');
 
-      if (addButton) {
-        const product = allProducts.find((item) => String(item.id) === addButton.dataset.id);
-        if (product) {
-          cart.addItem(product);
-        }
-      }
+    //   if (addButton) {
+    //     const product = allProducts.find((item) => String(item.id) === addButton.dataset.id);
+    //     if (product) {
+    //       cart.addItem(product);
+    //     }
+    //   }
 
-      if (actionButton) {
-        const { action, id } = actionButton.dataset;
-        if (action === 'increase') {
-          cart.updateQuantity(Number(id), cart.items.find((item) => item.id === Number(id)).quantity + 1);
-        }
-        if (action === 'decrease') {
-          const item = cart.items.find((entry) => entry.id === Number(id));
-          if (item && item.quantity > 1) {
-            cart.updateQuantity(Number(id), item.quantity - 1);
-          } else {
-            cart.removeItem(Number(id));
-          }
-        }
-        if (action === 'remove') {
-          cart.removeItem(Number(id));
-        }
-      }
+    //   if (actionButton) {
+    //     const { action, id } = actionButton.dataset;
+    //     if (action === 'increase') {
+    //       cart.updateQuantity(Number(id), cart.items.find((item) => item.id === Number(id)).quantity + 1);
+    //     }
+    //     if (action === 'decrease') {
+    //       const item = cart.items.find((entry) => entry.id === Number(id));
+    //       if (item && item.quantity > 1) {
+    //         cart.updateQuantity(Number(id), item.quantity - 1);
+    //       } else {
+    //         cart.removeItem(Number(id));
+    //       }
+    //     }
+    //     if (action === 'remove') {
+    //       cart.removeItem(Number(id));
+    //     }
+    //   }
 
-      if (navButton) {
-        const viewName = navButton.dataset.view;
-        if (viewName === 'checkout' && !cart.items.length) {
-          setFieldError('fullName', '');
-          setFieldError('email', '');
-          setFieldError('phone', '');
-          setFieldError('address', '');
-          const notice = document.createElement('div');
-          notice.className = 'cart-warning';
-          notice.style.color = '#ef4444';
-          notice.style.fontWeight = '700';
-          notice.style.marginBottom = '0.75rem';
-          notice.textContent = 'Your cart is empty. Add items before checkout.';
-          const form = document.getElementById('checkoutForm');
-          if (!form.querySelector('.cart-warning')) {
-            form.insertBefore(notice, form.firstChild);
-          }
-          return;
-        }
+    //   if (navButton) {
+    //     const viewName = navButton.dataset.view;
+    //     if (viewName === 'checkout' && !cart.items.length) {
+    //       setFieldError('fullName', '');
+    //       setFieldError('email', '');
+    //       setFieldError('phone', '');
+    //       setFieldError('address', '');
+    //       const notice = document.createElement('div');
+    //       notice.className = 'cart-warning';
+    //       notice.style.color = '#ef4444';
+    //       notice.style.fontWeight = '700';
+    //       notice.style.marginBottom = '0.75rem';
+    //       notice.textContent = 'Your cart is empty. Add items before checkout.';
+    //       const form = document.getElementById('checkoutForm');
+    //       if (!form.querySelector('.cart-warning')) {
+    //         form.insertBefore(notice, form.firstChild);
+    //       }
+    //       return;
+    //     }
 
-        const existingWarning = document.querySelector('.cart-warning');
-        if (existingWarning) {
-          existingWarning.remove();
-        }
-        setView(viewName);
-      }
-    });
-
-    //
+    //     const existingWarning = document.querySelector('.cart-warning');
+    //     if (existingWarning) {
+    //       existingWarning.remove();
+    //     }
+    //     setView(viewName);
+    //   }
+    // });
