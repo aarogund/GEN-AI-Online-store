@@ -6,6 +6,10 @@ import { cart } from "./cart.js";
     const navButtons = document.querySelectorAll('.nav-btn');
     
     export const views = {
+    const checkoutButton = document.getElementById('checkoutButton');
+    const checkoutForm = document.getElementById('checkoutForm');
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const views = {
       products: document.getElementById('productsView'),
       checkout: document.getElementById('checkoutView'),
       summary: document.getElementById('summaryView')
@@ -23,6 +27,7 @@ navButtons.forEach((button) => {
 
 
     export function validateField(fieldId, value) {
+    function validateField(fieldId, value) {
       const trimmed = value.trim();
 
       if (fieldId === 'fullName') {
@@ -47,6 +52,7 @@ navButtons.forEach((button) => {
     }
 
     export function setFieldError(fieldId, message) {
+    function setFieldError(fieldId, message) {
       const errorNode = document.querySelector(`[data-error-for="${fieldId}"]`);
       if (errorNode) {
         errorNode.textContent = message;
@@ -54,6 +60,7 @@ navButtons.forEach((button) => {
     }
 
     export function validateForm() {
+    function validateForm() {
       let isValid = true;
       const fields = ['fullName', 'email', 'phone', 'address'];
 
@@ -70,6 +77,7 @@ navButtons.forEach((button) => {
     }
 
     export function buildOrder() {
+    function buildOrder() {
       const customer = {
         name: document.getElementById('fullName').value.trim(),
         email: document.getElementById('email').value.trim(),
@@ -179,3 +187,4 @@ navButtons.forEach((button) => {
         });
 
     }
+        });
