@@ -1,9 +1,12 @@
+  import { allProducts, currency } from "./products.js";
+  import { setView } from "./checkout.js";
+  
   const cartItemsElement = document.getElementById('cartItems');
   const cartEmptyElement = document.getElementById('cartEmpty');
   const cartTotalElement = document.getElementById('cartTotal');
   const cartBadge = document.getElementById('cartBadge');
 
-  class Cart {
+  export class Cart {
       constructor() {
         this.items = JSON.parse(localStorage.getItem('nccMarketCart') || '[]');
       }
@@ -65,7 +68,7 @@
       }
     }
 
-   const cart = new Cart();
+  export  const cart = new Cart();
 
   function formatCurrency(value) {
       return currency.format(value);
@@ -128,6 +131,7 @@
     //   };
     // }
 
+    export function initCart(){
     document.addEventListener('click', (event) => {
       const addButton = event.target.closest('.add-btn');
       const actionButton = event.target.closest('[data-action]');
@@ -185,3 +189,5 @@
         setView(viewName);
       }
     });
+
+  }

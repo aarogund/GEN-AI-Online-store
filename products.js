@@ -11,17 +11,16 @@ const views = {
 };
 
 // Store all products retrieved from the API
- let allProducts = [];
+ export let allProducts = [];
 
 // Format prices as USD
-const currency = new Intl.NumberFormat('en-US', {
+export const currency = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD'
 });
 
-
 // 1. Fetch products from API
-async function loadProducts() {
+export async function loadProducts() {
   try {
     // Show loading message
     statusMessage.textContent = 'Loading products...';
@@ -61,7 +60,7 @@ async function loadProducts() {
 }
 
 // 2. Populate category dropdown
-function populateCategories(products) {
+export function populateCategories(products) {
   const categories = [
     'all',
     ...new Set(products.map(product => product.category))
@@ -77,7 +76,7 @@ function populateCategories(products) {
 }
 
 // 3. Display and filter products
-function renderProducts() {
+export function renderProducts() {
 
   // Get search input and selected category
   const query = searchInput.value.trim().toLowerCase();
