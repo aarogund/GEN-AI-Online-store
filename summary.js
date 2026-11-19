@@ -1,3 +1,6 @@
+import {cart, formatCurrency} from "./cart.js";
+import { setView, setFieldError } from "./checkout.js";
+
 export function renderSummary(order) {
       summaryContent.innerHTML = `
         <div class="summary-header">

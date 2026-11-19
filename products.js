@@ -1,3 +1,4 @@
+
 const productGrid = document.getElementById('productGrid');
 const categorySelect = document.getElementById('categorySelect');
 const searchInput = document.getElementById('searchInput');

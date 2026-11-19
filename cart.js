@@ -1,5 +1,5 @@
   import { allProducts, currency } from "./products.js";
-  import { setView } from "./checkout.js";
+  import { setView, setFieldError } from "./checkout.js";
   
   const cartItemsElement = document.getElementById('cartItems');
   const cartEmptyElement = document.getElementById('cartEmpty');
@@ -70,11 +70,11 @@
 
   export  const cart = new Cart();
 
-  function formatCurrency(value) {
+  export function formatCurrency(value) {
       return currency.format(value);
     }
 
-  function renderCart() {
+  export function renderCart() {
       cartItemsElement.innerHTML = '';
 
       if (!cart.items.length) {
@@ -132,6 +132,7 @@
     // }
 
     export function initCart(){
+  
     document.addEventListener('click', (event) => {
       const addButton = event.target.closest('.add-btn');
       const actionButton = event.target.closest('[data-action]');
