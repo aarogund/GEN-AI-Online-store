@@ -1,5 +1,6 @@
 import { allProducts } from "./products.js";
 import { cart } from "./cart.js";
+import { renderSummary } from "./summary.js";
     
     const checkoutButton = document.getElementById('checkoutButton');
     const checkoutForm = document.getElementById('checkoutForm');
