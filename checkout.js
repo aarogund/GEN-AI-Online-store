@@ -1,5 +1,5 @@
 import { allProducts } from "./products.js";
-import { cart } from "./cart.js";
+import { cart, renderCart } from "./cart.js";
 import { renderSummary } from "./summary.js";
     
     const checkoutButton = document.getElementById('checkoutButton');
@@ -70,6 +70,16 @@ navButtons.forEach((button) => {
       return isValid;
     }
 
+function renderCustomer(){
+      const c= JSON.parse(localStorage.getItem("customer"))||{};
+      document.getElementById('fullName').value=c.name||"";
+      document.getElementById('email').value= c.email||"";
+      document.getElementById('phone').value=c.phone||"";
+      document.getElementById('address').value=c.address||"";
+    }
+
+    renderCustomer();
+
     export function buildOrder() {
       const customer = {
         name: document.getElementById('fullName').value.trim(),
@@ -77,6 +87,8 @@ navButtons.forEach((button) => {
         phone: document.getElementById('phone').value.trim(),
         address: document.getElementById('address').value.trim()
       };
+
+      localStorage.setItem("customer", JSON.stringify(customer));
 
       return {
         orderId: `ORD-${Date.now()}`,
@@ -88,6 +100,7 @@ navButtons.forEach((button) => {
     }
 
     export function initClicks(){
+      renderCart();
     document.addEventListener('click', (event) => {
       const addButton = event.target.closest('.add-btn');
       const actionButton = event.target.closest('[data-action]');
@@ -151,6 +164,7 @@ navButtons.forEach((button) => {
             setView('products');
             return;
           }
+          renderCustomer();
           setView('checkout');
         });
     
