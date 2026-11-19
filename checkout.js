@@ -132,6 +132,7 @@ function renderCustomer(){
       }
 
       if (navButton) {
+        renderCustomer();
         const viewName = navButton.dataset.view;
         if (viewName === 'checkout' && !cart.items.length) {
           setFieldError('fullName', '');
@@ -185,7 +186,7 @@ function renderCustomer(){
           localStorage.setItem('nccMarketLatestOrder', JSON.stringify(order));
           renderSummary(order);
           setView('summary');
-          cart.clear();
+         // cart.clear();
           checkoutForm.reset();
           setFieldError('fullName', '');
           setFieldError('email', '');
